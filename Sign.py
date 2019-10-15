@@ -17,4 +17,4 @@ class Sign:
         self.num_of_points = cluster.num_of_points
 
         # Assign a picture to the sign here.
-        self.picture = "None"
+        self.picture = -1

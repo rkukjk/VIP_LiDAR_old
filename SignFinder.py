@@ -3,6 +3,7 @@ from Cluster import *
 from ClusterManager import *
 from Sign import *
 from SignManager import *
+from Camera import *
 from decimal import *
 import csv
 
@@ -37,13 +38,21 @@ if __name__ == '__main__':
         cluster_manager.insert_into_cluster(point)
 
 
-    # Now that I have my clusters, I can go through and verify that they are signs. For now, I will do something simple
-    # like filter by cluster size
+    # Now that I have my clusters, I can go through and verify that they are signs.
+    # For now, I filter by cluster size.
     sign_manager = SignManager()
     for cluster in cluster_manager.cluster_list:
         if cluster.num_of_points >= 20:
             sign = Sign(cluster)
             sign_manager.add(sign)
 
-    # Rough number of signs
     print(len(sign_manager.sign_list))
+
+    # Get the picture number that corresponds to each sign
+    camera = Camera('coords.csv')
+    for sign in sign_manager.sign_list:
+        pic_num = camera.get_closest_pic(sign.centroid_longitude, sign.centroid_latitude)
+        pic_num -= 2
+        sign.picture = pic_num
+
+    print(sign_manager.sign_list[1].picture)
