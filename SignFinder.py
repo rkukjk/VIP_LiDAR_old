@@ -11,7 +11,7 @@ if __name__ == '__main__':
 
     # This chunk of code will read the csv in row by row and create a list of points. I can go ahead and filter out
     # by Ra value at this stage so as to not have to load in ALLLLL that data in a pd data frame to begin with.
-    csv_file = open('csv_reading_test_data_2.csv', 'r')
+    csv_file = open('V_20180816_I285_EB_run1(0)_2nd_leg.csv', 'r')
     reader = csv.reader(csv_file)
 
     retro_threshold = 0.7
@@ -36,12 +36,20 @@ if __name__ == '__main__':
         # Put in a cluster
         cluster_manager.insert_into_cluster(point)
 
+    print(len(cluster_manager.cluster_list))
 
-    # Now that I have my clusters, I can go through and verify that they are signs. For now, I won't do any of that.
-    # I kinda want to see how just clustering works.
-    sign_manager = SignManager()
+    count = 0
     for cluster in cluster_manager.cluster_list:
-        sign = Sign(cluster)
-        sign_manager.add(sign)
+        if cluster.num_of_points >= 20:
+            count += 1
 
-    print(len(sign_manager.sign_list))
+    print(count)
+
+    # # Now that I have my clusters, I can go through and verify that they are signs. For now, I won't do any of that.
+    # # I kinda want to see how just clustering works.
+    # sign_manager = SignManager()
+    # for cluster in cluster_manager.cluster_list:
+    #     sign = Sign(cluster)
+    #     sign_manager.add(sign)
+    #
+    # print(len(s))
