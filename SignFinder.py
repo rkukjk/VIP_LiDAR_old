@@ -36,20 +36,14 @@ if __name__ == '__main__':
         # Put in a cluster
         cluster_manager.insert_into_cluster(point)
 
-    print(len(cluster_manager.cluster_list))
 
-    count = 0
+    # Now that I have my clusters, I can go through and verify that they are signs. For now, I will do something simple
+    # like filter by cluster size
+    sign_manager = SignManager()
     for cluster in cluster_manager.cluster_list:
         if cluster.num_of_points >= 20:
-            count += 1
+            sign = Sign(cluster)
+            sign_manager.add(sign)
 
-    print(count)
-
-    # # Now that I have my clusters, I can go through and verify that they are signs. For now, I won't do any of that.
-    # # I kinda want to see how just clustering works.
-    # sign_manager = SignManager()
-    # for cluster in cluster_manager.cluster_list:
-    #     sign = Sign(cluster)
-    #     sign_manager.add(sign)
-    #
-    # print(len(s))
+    # Rough number of signs
+    print(len(sign_manager.sign_list))
