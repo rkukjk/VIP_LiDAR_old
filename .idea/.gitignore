@@ -1,2 +1,7 @@
 # Default ignored files
 /workspace.xml
+/misc.xml
+/modules.xml
+/vcs.xml
+/VIP_LiDAR.iml
+__pycache__/
