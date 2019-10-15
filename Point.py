@@ -4,8 +4,8 @@ class Point:
 
     def __init__(self, point_index, long, lat, alt, angle, distance, retro, utc):
         self.point_index = point_index
-        self.latitude = lat
         self.longitude = long
+        self.latitude = lat
         self.altitude = alt
         # Should I convert to cartesian here on Point creation?
         self.x = None

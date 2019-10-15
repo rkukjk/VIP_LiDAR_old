@@ -12,3 +12,4 @@ class SignManager:
 
     def add(self, sign: Sign):
         self.sign_list.append(sign)
+

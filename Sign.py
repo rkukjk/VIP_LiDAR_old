@@ -1,5 +1,6 @@
 from ClusterManager import *
 from Cluster import *
+import pandas as pd
 
 class Sign:
     """
@@ -18,3 +19,23 @@ class Sign:
 
         # Assign a picture to the sign here.
         self.picture = -1
+
+    def convert_sign_to_panda_dataframe(self, sign, index):
+        data = []
+        for point in sign.point_list:
+            temp_list = []
+            temp_list.append(index) # Sign_ID - Do I need to make this a formal attribute?
+            temp_list.append(float(point.point_index))
+            temp_list.append(float(point.longitude))
+            temp_list.append(float(point.latitude))
+            temp_list.append(float(point.altitude))
+            temp_list.append(float(point.angle))
+            temp_list.append(float(point.distance))
+            temp_list.append(float(point.retro))
+            temp_list.append(float(point.timestamp))
+
+            data.append(temp_list)
+
+        df = pd.DataFrame(data, columns = ['sign_id', 'point_index', 'long', 'lat', 'alt', 'angle', 'distance', 'retro', 'timestamp'])
+
+        return df
