@@ -12,7 +12,7 @@ if __name__ == "__main__":
     f.readline()
 
     newf = open("E:/School/VIP/Data/LiDAR_Data/output/UTMpython.txt","w")
-    newf.write("ID,Easting,Northing,Altitude,Retro,Angle,Distance,UTC,Long,Lat\n");
+    newf.write("ID Easting Northing Altitude Retro Angle Distance UTC Long Lat\n");
 
     for line in f:
         lineData = line.split(",")

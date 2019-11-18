@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     # This chunk of code will read the csv in row by row and create a list of points. I can go ahead and filter out
     # by Ra value at this stage so as to not have to load in ALLLLL that data in a pd data frame to begin with.
-    csv_file = open('V_20180816_I285_EB_run1(0)_2nd_leg.csv', 'r')
+    csv_file = open('E:/School/VIP/Data/LiDAR_Data/original/CSV/V_20180816_I285_EB_run1(0)_2nd_leg.csv', 'r')
     reader = csv.reader(csv_file)
 
     retro_threshold = 0.7
@@ -55,24 +55,24 @@ if __name__ == '__main__':
 
 
 
-    # Code to write out to a csv for verifying
-    csv_data = [['Sign_ID', 'sign_centroid_long', 'sign_centroid_lat', 'sign_centroid_alt', 'avg_retro', 'num_of_points', 'pic_num']]
+    # # Code to write out to a csv for verifying
+    # csv_data = [['Sign_ID', 'sign_centroid_long', 'sign_centroid_lat', 'sign_centroid_alt', 'avg_retro', 'num_of_points', 'pic_num']]
 
-    # Put all sign info into csv_data
-    for i in range(len(sign_manager.sign_list)):
-        sign_info = [i, sign_manager.sign_list[i].centroid_longitude, sign_manager.sign_list[i].centroid_latitude,
-                     sign_manager.sign_list[i].centroid_altitude, sign_manager.sign_list[i].avg_retro, sign_manager.sign_list[i].num_of_points,
-                     sign_manager.sign_list[i].picture]
-        csv_data.append(sign_info)
+    # # Put all sign info into csv_data
+    # for i in range(len(sign_manager.sign_list)):
+    #     sign_info = [i, sign_manager.sign_list[i].centroid_longitude, sign_manager.sign_list[i].centroid_latitude,
+    #                  sign_manager.sign_list[i].centroid_altitude, sign_manager.sign_list[i].avg_retro, sign_manager.sign_list[i].num_of_points,
+    #                  sign_manager.sign_list[i].picture]
+    #     csv_data.append(sign_info)
 
-    # Actually writing to csv
-    csv_file = open('output.csv', 'w')
-    writer = csv.writer(csv_file, lineterminator='\n')
+    # # Actually writing to csv
+    # csv_file = open('output.csv', 'w')
+    # writer = csv.writer(csv_file, lineterminator='\n')
 
-    for i in range(len(csv_data)):
-        writer.writerow(csv_data[i])
+    # for i in range(len(csv_data)):
+    #     writer.writerow(csv_data[i])
 
-    csv_file.close()
+    # csv_file.close()
 
 
     # Code for visualizing the point cloud. Just used for teting. This is some janky code. Do something better than this
