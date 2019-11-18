@@ -8,27 +8,59 @@ from decimal import *
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import csv
+import argparse
 
+
+# Rounding Function
+def round_half_up(n, decimals=3):
+    multiplier = 10 ** decimals
+    return math.floor(n*multiplier + 0.5) / multiplier
 
 if __name__ == '__main__':
+    # Command line arg code
+    parser = argparse.ArgumentParser(description='Finding Signs in LiDAR data!')
+    parser.add_argument("--i", help = "Input file.")
+    parser.add_argument("--o", help = "Output file")
+    input_file = args.i
+    output_file = args.o
+    if input_file is None:
+        input_file = input("Enter input file: ")
 
-    # This chunk of code will read the csv in row by row and create a list of points. I can go ahead and filter out
-    # by Ra value at this stage so as to not have to load in ALLLLL that data in a pd data frame to begin with.
-    csv_file = open('E:/School/VIP/Data/LiDAR_Data/original/CSV/V_20180816_I285_EB_run1(0)_2nd_leg.csv', 'r')
-    reader = csv.reader(csv_file)
+    if output_file is None:
+        output_file = input("Enter output file: ")
 
-    retro_threshold = 0.7
+    # Reading in data into a dataframe and formatting it.
+    df = pd.read_csv(input_file, sep = " ")
+    df = df.astype({'ID': int})
+    # TODO: Figure out how to read in data with only a certain number of demicals. This takes a lot of time.
+    df['Easting'] = df['Easting'].apply(round_half_up)
+    df['Northing'] = df['Northing'].apply(round_half_up)
+    df['Altitude'] = df['Altitude'].apply(round_half_up)
+    df['Retro'] = df['Retro'].apply(round_half_up)
 
-    row_num = 0
-    point_list = list()
-    for row in reader:
-        # If not the header row and if the retro-intensity is greater than our threshold, the create a point object.
-        if row_num != 0 and Decimal(row[6]) >= Decimal(0.7):
-            p = Point(int(row[0]), Decimal(row[1]), Decimal(row[2]), Decimal(row[3]), Decimal(row[4]), Decimal(row[5]), Decimal(row[6]), Decimal(row[7]))
-            point_list.append(p)
-        row_num += 1
+# ========================================== Filtering ===============================================================
 
-    csv_file.close()
+
+
+
+
+
+
+# ====================================================================================================================
+
+
+
+# ========================================= Clustering ===============================================================
+
+# ====================================================================================================================
+
+
+
+
+# ========================================== Classifying =============================================================
+
+# ====================================================================================================================
+
 
 
     # Custom Clustering Algo
@@ -52,27 +84,6 @@ if __name__ == '__main__':
         pic_num = camera.get_closest_pic(sign.centroid_longitude, sign.centroid_latitude)
         pic_num -= 2
         sign.picture = pic_num
-
-
-
-    # # Code to write out to a csv for verifying
-    # csv_data = [['Sign_ID', 'sign_centroid_long', 'sign_centroid_lat', 'sign_centroid_alt', 'avg_retro', 'num_of_points', 'pic_num']]
-
-    # # Put all sign info into csv_data
-    # for i in range(len(sign_manager.sign_list)):
-    #     sign_info = [i, sign_manager.sign_list[i].centroid_longitude, sign_manager.sign_list[i].centroid_latitude,
-    #                  sign_manager.sign_list[i].centroid_altitude, sign_manager.sign_list[i].avg_retro, sign_manager.sign_list[i].num_of_points,
-    #                  sign_manager.sign_list[i].picture]
-    #     csv_data.append(sign_info)
-
-    # # Actually writing to csv
-    # csv_file = open('output.csv', 'w')
-    # writer = csv.writer(csv_file, lineterminator='\n')
-
-    # for i in range(len(csv_data)):
-    #     writer.writerow(csv_data[i])
-
-    # csv_file.close()
 
 
     # Code for visualizing the point cloud. Just used for teting. This is some janky code. Do something better than this
