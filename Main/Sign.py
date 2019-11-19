@@ -7,8 +7,6 @@ class Sign:
     This class will hold the points associated to that sign along with a picture id. Now I'm thinking I will just pass
     over the clusters and their data.
     """
-
-
     def __init__(self, cluster: Cluster):
         self.dataframe = cluster.dataframe
         self.centroid_easting = cluster.centroid_easting

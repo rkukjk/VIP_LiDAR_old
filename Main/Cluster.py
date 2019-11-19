@@ -31,14 +31,14 @@ class Cluster:
     # This function adds a point to the point list. Input is a row from a Dataframe, which is a series object
     def add_point(self, row):
         # Add row to Cluster df and increment num_of_points
-        self.dataframe.append(row, ignore_index = True)
+        self.dataframe = self.dataframe.append(row, ignore_index = True)
         self.num_of_points += 1
 
         # Calculate new centroid of cluster
-        self. centroid_easting, self.centroid_northing, self.centroid_altitude, self.centroid_longitude, self.centroid_latitude,  = self.centroid()
+        self.centroid_easting, self.centroid_northing, self.centroid_altitude, self.centroid_longitude, self.centroid_latitude  = self.centroid()
 
         # Calculate the new average retro value
-        self.dataframe['Retro'].mean()
+        self.avg_retro = self.dataframe['Retro'].mean()
 
 
     # This function calculates the centroid of the cluster. This could be improved by using the median of a data set

@@ -20,15 +20,16 @@ class SignManager:
         # Loop through each cluster
         for cluster in cluster_list:
             if cluster.num_of_points >= 20:
-                sign = Sign(Cluster)
+                sign = Sign(cluster)
                 sign_list.append(sign)
+        return sign_list
 
     # This method creates a dataframe from the list of signs
     def convert_signlist_to_dataframe(self, sign_list):
         data = []
         for sign in sign_list:
             temp_list = []
-            temp_list.append(sign.index())  # Sign_ID - Do I need to make this a formal attribute?
+            temp_list.append(sign_list.index(sign))  # Sign_ID - Do I need to make this a formal attribute?
             temp_list.append(sign.centroid_easting)  # centroid_easting
             temp_list.append(sign.centroid_northing)  # centroid_northing
             temp_list.append(sign.centroid_altitude)  # centroid_altitude
@@ -40,6 +41,14 @@ class SignManager:
 
             data.append(temp_list)
 
-        df = pd.DataFrame(data, columns=['Sign_Id', 'Easting', 'Northing', 'Altitude', 'Retro' 'Long', 'Lat', 'Num_of_Points', 'Pic_Num'])
+        df = pd.DataFrame(data, columns=['Sign_Id', 'Easting', 'Northing', 'Altitude', 'Retro', 'Long', 'Lat', 'Num_of_Points', 'Pic_Num'])
+
+        return df
+
+    def make_sign_point_dataframe(self, sign_list):
+        df = pd.DataFrame(columns = sign_list[0].dataframe.columns)
+        for sign in sign_list:
+            df = df.append(sign.dataframe)
+        df.sort_values(by=['ID'])
 
         return df

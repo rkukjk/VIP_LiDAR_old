@@ -48,7 +48,6 @@ if __name__ == '__main__':
     df = df.reset_index(drop=True)
 # ====================================================================================================================
 
-
 # ========================================= Clustering ===============================================================
     cluster_manager = ClusterManager()
     cluster_manager.cluster_list = cluster_manager.progressive_kdmean(df)
@@ -59,7 +58,6 @@ if __name__ == '__main__':
     sign_manager = SignManager()
     sign_manager.sign_list = sign_manager.num_points(cluster_manager.cluster_list)
 # ====================================================================================================================
-
 
 # ========================================== Adding photos ===========================================================
     # Get the picture number that corresponds to each sign
@@ -73,5 +71,7 @@ if __name__ == '__main__':
 
 # ======================================== Book keeping and output files =============================================
     sign_list_df = sign_manager.convert_signlist_to_dataframe(sign_manager.sign_list)
-
     sign_list_df.to_csv('sign_list_output.csv', index = False)
+
+    points_of_signs = sign_manager.make_sign_point_dataframe(sign_manager.sign_list)
+    points_of_signs.to_csv('points_of_signs.txt', sep = ' ', index = False)

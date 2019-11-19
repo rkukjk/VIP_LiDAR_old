@@ -22,7 +22,6 @@ class ClusterManager:
         cluster_list = []
 
         for index, row in df.iterrows():
-
             if cluster_list == []:
                 c_df = pd.DataFrame(columns = df.columns)
                 c = Cluster(c_df)
@@ -32,7 +31,8 @@ class ClusterManager:
                 # see if it falls within a certain range
                 count = 0
                 inserted = False
-                while not inserted and count < len(self.cluster_list):
+
+                while not inserted and count < len(cluster_list):
                     c = cluster_list[count] #c is a cluster
 
                     easting_lower_bound = c.centroid_easting - easting_tolerance
