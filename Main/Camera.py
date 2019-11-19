@@ -16,6 +16,7 @@ class Camera:
         self.pic_dict = self.pic_coords(file_name)
 
 
+    # This method reads in the data from coords.csv and puts data into a dictionary as {pic_num: (long, lat, alt)}
     def pic_coords(self, file_name):
         coords_file = open(file_name, 'r')
         reader = csv.reader(coords_file)
