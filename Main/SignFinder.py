@@ -42,6 +42,7 @@ if __name__ == '__main__':
     df['Altitude'] = df['Altitude'].apply(round_half_up)
     df['Retro'] = df['Retro'].apply(round_half_up)
 
+# Command line and initialization ^^^
 # ========================================== Filtering ===============================================================
     # Filtering by Retro values
     df = df.loc[df['Retro'] > 0.7]
@@ -58,6 +59,7 @@ if __name__ == '__main__':
     sign_manager = SignManager()
     sign_manager.sign_list = sign_manager.num_points(cluster_manager.cluster_list)
 # ====================================================================================================================
+# Book keeping vvvv
 
 # ========================================== Adding photos ===========================================================
     # Get the picture number that corresponds to each sign
