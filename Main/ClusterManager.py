@@ -3,16 +3,42 @@ import pandas as pd
 
 class ClusterManager:
     """
-    This class manages all the clusters that we are going to make along wth all the clustering algorithms. As it stands,
-    it just saves it's clusters in a list. I can optimize this later.
+    This class manages all the clusters along with the algorithms to determine clusters. 
+    Each clustering algo will take in a dataframe, which is the main dataframe with the results from the filtering section.
+    Each clustering algo will output a list of signs that will be held by a SignManager object.
     """
 
+    # Initilization
     def __init__(self):
         self.cluster_list = list()
 
 
-    # This method will go point by point and insert them into clusters. Only input is dataframe. Return value is a list
-    # of clusters
+
+
+
+
+
+
+
+
+
+
+
+# =================================================== Clustering Algorithms ======================================================================================
+    """
+    progressive_kdmean is a centroid based algorithm. It will take in the whole dataframe and go point by point. If there is a cluster whose centroid is within
+    a certain distance away (threshold), then it adds it to the cluster. If no cluster exists, then it creates a new cluster and adds the points to the new cluster.
+    The threshold is set a 1 meter, as I figured most signs are around about a meter or so wide.
+
+    This method works fairly well if we are able to filter out points that probably don't belong to a sign.
+
+    The columns for the pandas dataframe are as follows:
+
+    ID, Easting, Northing, Altitude, Retro, Angle, Distance, UTC, Long, Lat, Pic
+
+    Input: pandas dataframe
+    Output: list of clusters 
+    """
     def progressive_kdmean(self, df):
         easting_tolerance = 1.0
         northing_tolerance = 1.0

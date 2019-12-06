@@ -11,6 +11,42 @@ import argparse
 import math
 import pandas as pd
 
+"""
+This is the test bed that we will use to test different algorithms.
+The code is broken down into the following sections:
+
+1. Command line arguements and initialization
+    - This code allows this test bed to be run with different inputs and eventually with different algorithms. The idea is to be able to quickly
+    swap between different cluster and classifying combinations in order to do quick analysis.
+    - This is where all the files are read in and the data can be formatted (in our case, we round all x, y, and z to 3 decimal places. Yes this is slow. Hopefully we can make this round fn faster).
+
+2. Algorithm Implementation - There are three parts to this part
+    a) Filtering
+    b) Clustering
+    c) Classifying
+
+    It is important to understand the purpose of each section AND it's inputs and outputs.
+
+    Filtering
+        - There are no inputs and outputs to filtering. We simply filter the dataframe by columns. We can filter by any column value.
+
+    Clustering
+        - The algorithms that are implemented in this section should be defined in the ClusterManager class.
+        - Each clustering algorithm should take in a pandas dataframe and should return a list of clusters.
+        - A cluster manager object will hold the list of clusters returned from the clustering algorithm. Look in the section below for details.
+
+    Classifying
+        - This section is to implement algorithms that will determine if a cluster is a sign and the sign's shape/classification.
+        - The input for a classfying algorithm is a list of clusters and the output is a list of signs.
+        - A sign manager object will hold the list of signs returned from the classifying algorithm. Look in the section below for details.
+
+3. Book-keeping
+    - We do other little things here like:
+        - pair a picture to which sign we think it is
+        - Writing results out to a file.
+
+"""
+
 
 # Rounding Function
 def round_half_up(n, decimals=3):
@@ -43,6 +79,7 @@ if __name__ == '__main__':
     df['Retro'] = df['Retro'].apply(round_half_up)
 
 # Command line and initialization ^^^
+
 # ========================================== Filtering ===============================================================
     # Filtering by Retro values
     df = df.loc[df['Retro'] > 0.7]
@@ -54,13 +91,12 @@ if __name__ == '__main__':
     cluster_manager.cluster_list = cluster_manager.progressive_kdmean(df)
 # ====================================================================================================================
 
-
 # ========================================== Classifying =============================================================
     sign_manager = SignManager()
     sign_manager.sign_list = sign_manager.num_points(cluster_manager.cluster_list)
 # ====================================================================================================================
-# Book keeping vvvv
 
+# Book keeping vvvv
 # ========================================== Adding photos ===========================================================
     # Get the picture number that corresponds to each sign
     camera = Camera('E:/School/VIP/Data/LiDAR_Data/coords/coords.csv')

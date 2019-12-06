@@ -5,25 +5,18 @@ import pandas as pd
 class SignManager:
     """
     This class manages all the signs along with the algorithms to determine which clusters are signs. Each algo will
-    take in a list of clusters and determine if a cluster is a sign. They will output a list of signs.
+    take in a list of clusters and determine if a cluster is a sign. They will output a list of signs that will be held
+    by a SignManager object.
     """
     def __init__(self):
         self.sign_list = list()
 
 
+    # Add a sign to the sign manager's list
     def add_sign(self, sign: Sign):
         self.sign_list.append(sign)
 
-    # This is a very basic algo. If a cluster has more than 20 points, then it is classified as a sign
-    def num_points(self, cluster_list):
-        sign_list = []
-        # Loop through each cluster
-        for cluster in cluster_list:
-            if cluster.num_of_points >= 20:
-                sign = Sign(cluster)
-                sign_list.append(sign)
-        return sign_list
-
+# ======================================== Book keeping methods ====================================================================
     # This method creates a dataframe from the list of signs
     def convert_signlist_to_dataframe(self, sign_list):
         data = []
@@ -52,3 +45,23 @@ class SignManager:
         df.sort_values(by=['ID'])
 
         return df
+
+# ==================================================================================================================================
+
+
+# ============================================== Classifying Algoirhtms ============================================================
+
+    """
+    The num_points algo is very basic. If a cluster has more than 20 points, then it is classified as a sign.
+
+    Inputs: A list of cluster objects
+    Outputs: A list of sign objects
+    """
+    def num_points(self, cluster_list):
+        sign_list = []
+        # Loop through each cluster
+        for cluster in cluster_list:
+            if cluster.num_of_points >= 20:
+                sign = Sign(cluster)
+                sign_list.append(sign)
+        return sign_list

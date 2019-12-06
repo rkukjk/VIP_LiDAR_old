@@ -31,7 +31,12 @@ class Camera:
 
         return pics_dict
 
-    # This method returns the picture number corresponding to the closest picture to the input long & lat coordinates
+    """
+    This method returns the picture number corresponding to the closest picture to the input long & lat coordinates
+
+    Inputs: Long and Lat measurements in degrees
+    Outputs: A number that corresponds to the file name of the picture that shows the sign.
+    """
     def get_closest_pic(self, long, lat):
         distance = float("inf")
         pic_num = -1

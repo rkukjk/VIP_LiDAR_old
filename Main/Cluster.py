@@ -1,9 +1,16 @@
 from decimal import Decimal
 import pandas as pd
 
+"""
+The cluster class is essentially a grouping of points that should represent an object in the real world.
+Each cluster contains the points that belong to that cluster in a pandas dataframe
+The centroid of the cluster is also maintained along with the average retro intensity value and the number of points in the cluster.
+"""
+
+
+
 class Cluster:
 
-    # Cluster class has a list (may be changed to a different data structure) to keep all the points that belong to that
     # cluster
     def __init__(self, df):
         self.dataframe = df
@@ -28,7 +35,12 @@ class Cluster:
 
 
 
-    # This function adds a point to the point list. Input is a row from a Dataframe, which is a series object
+    """
+    This function adds a point to the point list. 
+
+    Input: A row from a Dataframe, which is a Series object
+    Output: None
+    """
     def add_point(self, row):
         # Add row to Cluster df and increment num_of_points
         self.dataframe = self.dataframe.append(row, ignore_index = True)
@@ -41,8 +53,10 @@ class Cluster:
         self.avg_retro = self.dataframe['Retro'].mean()
 
 
-    # This function calculates the centroid of the cluster. This could be improved by using the median of a data set
-    # instead of the average
+    """
+    This function calculates the centroid of the cluster. This could be improved by using the median of a data set
+    instead of the average
+    """
     def centroid(self):
         centroid_easting = self.dataframe['Easting'].mean()
         centroid_northing = self.dataframe['Northing'].mean()
